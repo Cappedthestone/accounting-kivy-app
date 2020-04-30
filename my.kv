@@ -1,0 +1,655 @@
+<SignInPage>:
+    id: main_wid
+    orientation: "vertical"
+    spacing: 15
+    space_x: self.size[0]/4
+    canvas.before:
+        Color: 
+            rgba: (0,.7,.9, .9)
+        Rectangle:
+            size: self.size
+            pos: self.pos
+
+    name: "SignInPage"
+
+    username: username
+    password: password
+
+
+    FloatLayout:
+        size_hint_y: None
+        height: 60
+        pos_hint: {"x": 0 , "top":1}
+        canvas.before:
+            Color: 
+                rgba: (0.6, 0.6, 0.6,1)
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        Label:
+            text: "Finance Signin Page"
+            bold: True
+            size_hint_x: .9
+            pos_hint: {"x": 0.05 , "top":1}
+    
+    FloatLayout:
+        Image:
+            source:"roboto.jpg"
+            pos_hint: {"x": 0 , "top":1.15}
+            
+    FloatLayout:
+        orientation: "vertical"
+        padding: main_wid.space_x, 15
+        spacing: 15
+        FloatLayout: 
+            orientation: "vertical"
+            spacing: 5
+            size_hint_y: None
+            height: 100
+            Label:
+                id: info
+                text:''
+                pos_hint: {"x": 0.01 , "top": 2.8}
+                markup: True
+            TextInput:
+                id: username
+                hint_text: "Username"
+                multiline: False
+                focus: True
+                on_text_validate: password.focus = True
+                size_hint: 0.3, .5
+                pos_hint: {"x": 0.35 , "top":2.15}
+            TextInput:
+                id: password
+                hint_text: "Password"
+                multiline: False
+                password: True
+                size_hint: 0.3, .5
+                pos_hint: {"x": 0.35 , "top":1.5}
+                
+        Button:
+            text: "Sign In"
+            size_hint_y: None
+            height: 30
+            background_color: (0.6, 0.6, 0.6,1)
+            background_normal: ''
+            pos_hint: {"x": 0.35 , "top":0.08}
+            size_hint: 0.3, .07
+            on_release: root.validate_user()
+
+
+<FlatButton@ButtonBehavior+Label>:
+    font_size: 14
+    
+
+<InventoryPage>:
+    name: "InventoryPage"
+    orientation: "vertical"
+    spacing: 15
+    space_x: self.size[0]/4
+    canvas.before:
+        Color: 
+            rgba: (0,.7,.9, .9)
+        Rectangle:
+            size: self.size
+            pos: self.pos
+
+    BoxLayout:
+        size_hint_y: None
+        height: 60
+        pos_hint: {"x": 0 , "top":1}
+        canvas.before:
+            Color: 
+                rgba: (0.6, 0.6, 0.6,1)
+            Rectangle:
+                size: self.size
+                pos: self.pos
+
+        Label:
+            text: "Inventory Page"
+            bold: True
+            pos_hint: {"x": 0.06 , "top":0.9}
+            size_hint_x: .9 
+            font_size: 25 
+
+        Button:
+            text: "Logout"
+            size_hint: 0.1, .9
+            pos_hint: {"x": 0.9 , "top": 1}
+            background_color: (0.6, 0.6, 0.6,1)
+            background_normal: ''
+            on_press:
+                root.manager.transition.direction = "left"
+                root.manager.current = "SignInPage"                 
+
+    BoxLayout:
+        padding: 10
+        BoxLayout:
+            id: product_details
+            orientation: "vertical"
+            size_hint_x: .8
+            spacing: 20
+            pos_hint: {"x": 0 , "top": 1.25}
+
+            BoxLayout:
+                id: product_labels
+                size_hint_y: None
+                height: 40
+                canvas.before:
+                    Color:
+                        rgba: (0.6, 0.6, 0.6,1)
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+
+                FlatButton:
+                    text: 'Qty'
+                    size_hint_x: .2
+                FlatButton:
+                    text: 'Product Name'
+                    size_hint_x: .4
+                FlatButton:
+                    text: 'Instock'
+                    size_hint_x: .2
+                FlatButton:
+                    text: 'Purchased price'
+                    size_hint_x: .2
+                FlatButton:
+                    text: 'Cost Total'
+                    size_hint_x: .2   
+                FlatButton:
+                    text: 'Add/Delete Button'
+                    size_hint_x: .2        
+                
+            BoxLayout:
+                id: product_inputs1
+                size_hint_y: None
+                height: 30
+                spacing: 5
+                TextInput:
+                    id: qty_inp1
+                    hint_text:'Enter product amount incoming.'
+                    text: '1000'
+                    size_hint_x: .2
+                    multiline: False
+                TextInput:
+                    id: name_inp1
+                    size_hint_x: .4
+                    text: 'Avatar the last airbender 1st season'
+                    hint_text:'Enter product name.'
+                    multiline: False
+                TextInput:
+                    id: stock_inp1
+                    hint_text:'Enter current stock.'
+                    text: '50'
+                    size_hint_x: .2
+                    multiline: False
+                TextInput:
+                    id: price_inp1
+                    hint_text:'Enter current purchased price.'
+                    text: '19.99'
+                    size_hint_x: .2
+                    multiline: False
+                TextInput:
+                    id: stotal_inp1
+                    hint_text:'Total purchase price.'
+                    size_hint_x: .2
+                    readonly: True   
+                    multiline: False 
+                Button:
+                    size_hint_x: None
+                    text: 'Delete Row'
+                    size_hint_y: .1
+                    bold: True
+                    pos_hint: {"left": 1 , "top": .5}
+                    background_color: (0.6, 0.6, 0.6,1)
+                    background_normal: ''
+                    on_press: root.DeleteRow1()
+
+            BoxLayout:
+                id: product_inputs2
+                size_hint_y: None
+                height: 30
+                spacing: 5
+                TextInput:
+                    id: qty_inp2
+                    hint_text:'Enter product amount incoming.'
+                    text: '500'
+                    multiline: False
+                    size_hint_x: .2
+                TextInput:
+                    id: name_inp2
+                    hint_text:'Enter product name.'
+                    text: 'Supernatural Full series package'
+                    size_hint_x: .4
+                    multiline: False
+                TextInput:
+                    id: stock_inp2
+                    size_hint_x: .2
+                    text: '500'
+                    multiline: False
+                    hint_text:'Enter current stock.'
+                TextInput:
+                    id: price_inp2
+                    size_hint_x: .2
+                    text: '59.99'
+                    multiline: False
+                    hint_text:'Enter current purchased price'
+                TextInput:
+                    id: stotal_inp2
+                    size_hint_x: .2
+                    readonly: True 
+                    multiline: False
+                    hint_text:'Total purchase price'  
+                Button:
+                    size_hint_x: None
+                    text: 'Delete Row'
+                    size_hint_y: .1
+                    bold: True
+                    pos_hint: {"left": 1 , "top": .5}
+                    background_color: (0.6, 0.6, 0.6,1)
+                    background_normal: ''
+                    on_press: root.DeleteRow2()
+
+            BoxLayout:
+                id: product_inputs3
+                size_hint_y: None
+                height: 30
+                spacing: 5
+                TextInput:
+                    id: qty_inp3
+                    size_hint_x: .2
+                    text: '700'
+                    multiline: False
+                    hint_text:'Enter product amount incoming.'
+                TextInput:
+                    id: name_inp3
+                    size_hint_x: .4
+                    text: 'Dragon Ball Super Season 4'
+                    multiline: False
+                    hint_text:'Enter product name.'
+                TextInput:
+                    id: stock_inp3
+                    size_hint_x: .2
+                    text: '500'
+                    multiline: False                  
+                    hint_text:'Enter current stock.'
+                TextInput:
+                    id: price_inp3
+                    size_hint_x: .2
+                    text: '25.99'
+                    multiline: False
+                    hint_text:'Enter current purchased price'
+                TextInput:
+                    id: stotal_inp3
+                    size_hint_x: .2
+                    readonly: True 
+                    multiline: False
+                    hint_text:'Total purchase price'
+                Button:
+                    size_hint_x: None
+                    text: 'Delete Row'
+                    size_hint_y: .1
+                    bold: True
+                    pos_hint: {"left": 1 , "top": .5}
+                    background_color: (0.6, 0.6, 0.6,1)
+                    background_normal: ''
+                    on_press: root.DeleteRow3()  
+
+            BoxLayout:
+                id: product_inputs4
+                size_hint_y: None
+                height: 30
+                spacing: 5
+                TextInput:
+                    id: qty_inp4
+                    size_hint_x: .2
+                    text: '300'
+                    multiline: False
+                    hint_text:'Enter product amount incoming.'
+                TextInput:
+                    id: name_inp4
+                    size_hint_x: .4
+                    text: ' The King of Highschool season 1'
+                    multiline: False
+                    hint_text:'Enter product name.'
+                TextInput:
+                    id: stock_inp4
+                    size_hint_x: .2
+                    text: '1'
+                    multiline: False
+                    hint_text:'Enter current stock.'
+                TextInput:
+                    id: price_inp4
+                    size_hint_x: .2
+                    text: '9.99'
+                    multiline: False
+                    hint_text:'Enter current purchased price'
+                TextInput:
+                    id: stotal_inp4
+                    size_hint_x: .2
+                    readonly: True 
+                    multiline: False
+                    hint_text:'Total purchase price'  
+                Button:
+                    size_hint_x: None
+                    text: 'Delete Row'
+                    size_hint_y: .1
+                    bold: True
+                    pos_hint: {"left": 1 , "top": .5}
+                    background_color: (0.6, 0.6, 0.6,1)
+                    background_normal: ''
+                    on_press: root.DeleteRow4()
+
+            BoxLayout:
+                id: product_inputs5
+                size_hint_y: None
+                height: 30
+                spacing: 5
+                TextInput:
+                    id: qty_inp5
+                    size_hint_x: .2
+                    text: '10000'
+                    multiline: False
+                    hint_text:'Enter product amount incoming.'
+                TextInput:
+                    id: name_inp5
+                    size_hint_x: .4
+                    text: 'Kenichi historys strongest disciple full series'
+                    multiline: False
+                    hint_text:'Enter product name.'
+                TextInput:
+                    id: stock_inp5
+                    size_hint_x: .2
+                    text: '10000'
+                    multiline: False
+                    hint_text:'Enter current stock.'
+                TextInput:
+                    id: price_inp5
+                    size_hint_x: .2
+                    text: '99.99'
+                    multiline: False
+                    hint_text:'Enter current purchased price'
+                TextInput:
+                    id: stotal_inp5
+                    size_hint_x: .2
+                    readonly: True  
+                    multiline: False   
+                    hint_text:'Total purchase price'
+                Button:
+                    size_hint_x: None
+                    text: 'Delete Row'
+                    size_hint_y: .1
+                    bold: True
+                    pos_hint: {"left": 1 , "top": .5}
+                    background_color: (0.6, 0.6, 0.6,1)
+                    background_normal: ''
+                    on_press: root.DeleteRow5()
+
+            BoxLayout:
+                id: product_inputs6
+                size_hint_y: None
+                height: 30
+                spacing: 5
+                TextInput:
+                    id: qty_inp6
+                    size_hint_x: .2
+                    text: '200'
+                    multiline: False
+                    hint_text:'Enter product amount incoming.'
+                TextInput:
+                    id: name_inp6
+                    size_hint_x: .4
+                    text: 'One punch man season 2'
+                    multiline: False
+                    hint_text:'Enter product name.'
+                TextInput:
+                    id: stock_inp6
+                    size_hint_x: .2
+                    text: '500'
+                    multiline: False
+                    hint_text:'Enter current stock.'
+                TextInput:
+                    id: price_inp6
+                    size_hint_x: .2
+                    text: '8.99'
+                    multiline: False
+                    hint_text:'Enter current purchased price'
+                TextInput:
+                    id: stotal_inp6
+                    size_hint_x: .2
+                    readonly: True  
+                    multiline: False    
+                    hint_text:'Total purchase price' 
+                Button:
+                    size_hint_x: None
+                    text: 'Delete Row'
+                    size_hint_y: .1
+                    bold: True
+                    pos_hint: {"left": 1 , "top": .5}
+                    background_color: (0.6, 0.6, 0.6,1)
+                    background_normal: ''
+                    on_press: root.DeleteRow6()
+
+            BoxLayout:
+                id: product_inputs7
+                size_hint_y: None
+                height: 30
+                spacing: 5
+                TextInput:
+                    id: qty_inp7
+                    size_hint_x: .2
+                    text: '100'
+                    multiline: False
+                    hint_text:'Enter product amount incoming.'
+                TextInput:
+                    id: name_inp7
+                    size_hint_x: .4
+                    text: 'Bleach Hell verse movie'
+                    multiline: False
+                    hint_text:'Enter product name.'
+                TextInput:
+                    id: stock_inp7
+                    size_hint_x: .2
+                    text: '650'
+                    multiline: False
+                    hint_text:'Enter current stock.'
+                TextInput:
+                    id: price_inp7
+                    size_hint_x: .2
+                    text: '15.99'
+                    multiline: False
+                    hint_text:'Enter current purchased price'
+                TextInput:
+                    id: stotal_inp7
+                    size_hint_x: .2
+                    readonly: True  
+                    multiline: False
+                    hint_text:'Total purchase price'
+                Button:
+                    size_hint_x: None
+                    text: 'Delete Row'
+                    size_hint_y: .1
+                    bold: True
+                    pos_hint: {"left": 1 , "top": .5}
+                    background_color: (0.6, 0.6, 0.6,1)
+                    background_normal: ''
+                    on_press: root.DeleteRow7()
+
+            BoxLayout:
+                id: product_inputs8
+                size_hint_y: None
+                height: 30
+                spacing: 5
+                TextInput:
+                    id: qty_inp8
+                    size_hint_x: .2
+                    text: '725'
+                    multiline: False
+                    hint_text:'Enter product amount incoming.'
+                TextInput:
+                    id: name_inp8
+                    size_hint_x: .4
+                    text: 'Black Clover Full series'
+                    multiline: False
+                    hint_text:'Enter product name.'
+                TextInput:
+                    id: stock_inp8
+                    size_hint_x: .2
+                    text: '624'
+                    multiline: False
+                    hint_text:'Enter current stock.'
+                TextInput:
+                    id: price_inp8
+                    size_hint_x: .2
+                    text: '89.97'
+                    multiline: False
+                    hint_text:'Enter current purchased price'
+                TextInput:
+                    id: stotal_inp8
+                    size_hint_x: .2
+                    readonly: True 
+                    multiline: False     
+                    hint_text:'Total purchase price'
+                Button:
+                    size_hint_x: None
+                    text: 'Delete Row'
+                    size_hint_y: .1
+                    bold: True
+                    pos_hint: {"left": 1 , "top": .5}
+                    background_color: (0.6, 0.6, 0.6,1)
+                    background_normal: ''
+                    on_press: root.DeleteRow8()
+
+            BoxLayout:
+                id: product_inputs9
+                size_hint_y: None
+                height: 30
+                spacing: 5
+                TextInput:
+                    id: qty_inp9
+                    size_hint_x: .2
+                    text: '2009'
+                    multiline: False
+                    hint_text:'Enter product amount incoming.'
+                TextInput:
+                    id: name_inp9
+                    size_hint_x: .4
+                    text: 'Gurren Laggan Season 3'
+                    multiline: False
+                    hint_text:'Enter product name.'
+                TextInput:
+                    id: stock_inp9
+                    size_hint_x: .2
+                    text: '505'
+                    multiline: False
+                    hint_text:'Enter current stock.'
+                TextInput:
+                    id: price_inp9
+                    size_hint_x: .2
+                    text: '14.98'
+                    multiline: False
+                    hint_text:'Enter current purchased price'
+                TextInput:
+                    id: stotal_inp9
+                    size_hint_x: .2
+                    readonly: True 
+                    multiline: False  
+                    hint_text:'Total purchase price'
+                Button:
+                    size_hint_x: None
+                    text: 'Delete Row'
+                    size_hint_y: .1
+                    bold: True
+                    pos_hint: {"left": 1 , "top": .5}
+                    background_color: (0.6, 0.6, 0.6,1)
+                    background_normal: ''
+                    on_press: root.DeleteRow9()
+
+            BoxLayout:
+                id: product_inputs10
+                size_hint_y: None
+                height: 30
+                spacing: 5
+                TextInput:
+                    id: qty_inp10
+                    size_hint_x: .2
+                    text: '455'
+                    multiline: False
+                    hint_text:'Enter product amount incoming.'
+                TextInput:
+                    id: name_inp10
+                    size_hint_x: .4
+                    text: 'Konosuba Season 2'
+                    multiline: False
+                    hint_text:'Enter product name.'
+                TextInput:
+                    id: stock_inp10
+                    size_hint_x: .2
+                    text: '1157'
+                    multiline: False
+                    hint_text:'Enter current stock.'
+                TextInput:
+                    id: price_inp10
+                    size_hint_x: .2
+                    text: '17.95'
+                    multiline: False
+                    hint_text:'Enter current purchased price'
+                TextInput:
+                    id: stotal_inp10
+                    size_hint_x: .2
+                    readonly: True
+                    multiline: False   
+                    hint_text:'Total purchase price'
+                Button:
+                    size_hint_x: None
+                    text: 'Delete Row'
+                    size_hint_y: .1
+                    bold: True
+                    pos_hint: {"left": 1 , "top": .5}
+                    background_color: (0.6, 0.6, 0.6,1)
+                    background_normal: ''
+                    on_press: root.DeleteRow10()
+
+            BoxLayout:
+                id: footer
+                size_hint_y: None
+                height: 100
+                pos_hint: {"x": 0 , "top": 0}
+                canvas.before:
+                    Color:
+                        rgba: (0.6, 0.6, 0.6,1)
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                Label:
+                    id: cost
+                    text:'Place Holder for Total.'
+                    pos_hint: {"x": 0.01 , "top": 1.1}
+                    bold: True
+                    markup: True
+                Button:
+                    size_hint_x: None
+                    text: 'Calculate'
+                    size_hint_y: .1
+                    bold: True
+                    pos_hint: {"left": 1 , "top": .5}
+                    background_color: (0,.7,.9, .9)
+                    background_normal: ''
+                    font_size: 20
+                    on_press: root.validate_data()
+         
+
+<DataErrorPopup>:
+    BoxLayout:
+        orientation: "vertical"
+        Label:
+            text: "Please enter Quantity as a whole number.\nPlease enter Name as a string.\nPlease enter Stock as an integer.\nPlease enter price as a float example 12.00\nPlease enter all values leave nothing blank\nPlease leave no spaces inbetween the digits"
+        BoxLayout:
+            Button:
+                size_hint_y: None
+                height: 50
+                text: "Cancel"
+                on_release:
+                    root.dismiss_popup()
+    
